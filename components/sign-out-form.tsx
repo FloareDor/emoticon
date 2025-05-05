@@ -10,7 +10,7 @@ export const SignOutForm = () => {
         'use server';
 
         await signOut({
-          redirectTo: '/',
+          redirectTo: process.env.NEXT_PUBLIC_APP_URL || '/',
         });
       }}
     >

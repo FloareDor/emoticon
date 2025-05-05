@@ -10,7 +10,7 @@ export function GoogleSignInButton() {
       variant="outline"
       type="button"
       className="w-full"
-      onClick={() => signIn('google', { callbackUrl: '/' })}
+      onClick={() => signIn('google', { callbackUrl: process.env.NEXT_PUBLIC_APP_URL || '/' })}
     >
       <Icons.google className="mr-2 h-4 w-4" />
       Sign in with Google
