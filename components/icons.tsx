@@ -1,3 +1,7 @@
+import { SVGProps } from 'react';
+
+type LucideProps = SVGProps<SVGSVGElement>;
+
 export const BotIcon = () => {
   return (
     <svg

@@ -124,9 +124,9 @@ export async function getChatsByUserId({
   try {
     const extendedLimit = limit + 1;
 
-    const query = (whereCondition?: SQL<any>) =>
+    const query = (whereCondition?: (chat: Chat) => boolean) =>
       mockChats
-        .filter(c => whereCondition ? and(whereCondition, eq(c.userId, id)) : eq(c.userId, id))
+        .filter(c => c.userId === id && (!whereCondition || whereCondition(c)))
         .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
         .slice(0, extendedLimit);
 
@@ -139,7 +139,7 @@ export async function getChatsByUserId({
         throw new Error(`Chat with id ${startingAfter} not found`);
       }
 
-      filteredChats = query(gt(mockChats.find(c => c.id === startingAfter)!.createdAt));
+      filteredChats = query(c => c.createdAt > selectedChat.createdAt);
     } else if (endingBefore) {
       const [selectedChat] = mockChats.filter(c => c.id === endingBefore);
 
@@ -147,7 +147,7 @@ export async function getChatsByUserId({
         throw new Error(`Chat with id ${endingBefore} not found`);
       }
 
-      filteredChats = query(lt(mockChats.find(c => c.id === endingBefore)!.createdAt));
+      filteredChats = query(c => c.createdAt < selectedChat.createdAt);
     } else {
       filteredChats = query();
     }
