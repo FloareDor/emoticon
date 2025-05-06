@@ -18,24 +18,33 @@ const LEVELS = [
     level: 1,
     name: 'Beginner',
     description: 'Basic emotions, clear context',
-    emotions: ['happy', 'sad', 'angry', 'scared', 'excited', 'surprised']
+    emotions: ['happy', 'sad', 'angry', 'scared', 'excited', 'surprised'],
+    modes: ['positive', 'negative'],
+    intensities: ['mild', 'moderate', 'intense']
   },
   {
     level: 2,
     name: 'Intermediate',
     description: 'Complex emotions, subtle context',
-    emotions: ['frustrated', 'disappointed', 'proud', 'anxious', 'hopeful', 'lonely']
+    emotions: ['frustrated', 'disappointed', 'proud', 'anxious', 'hopeful', 'lonely'],
+    modes: ['positive', 'negative'],
+    intensities: ['mild', 'moderate', 'intense']
   },
   {
     level: 3,
     name: 'Advanced',
     description: 'Mixed emotions, nuanced context',
-    emotions: ['vulnerable', 'resentful', 'grateful', 'overwhelmed', 'insecure', 'content']
+    emotions: ['vulnerable', 'resentful', 'grateful', 'overwhelmed', 'insecure', 'content'],
+    modes: ['positive', 'negative'],
+    intensities: ['mild', 'moderate', 'intense']
   }
 ];
 
 export function EmotionPractice() {
   const [currentLevel, setCurrentLevel] = useState(1);
+  const [currentMode, setCurrentMode] = useState<'positive' | 'negative'>('negative');
+  const [currentIntensity, setCurrentIntensity] = useState<'mild' | 'moderate' | 'intense'>('moderate');
+  const [showOptions, setShowOptions] = useState(false);
   const [currentMessage, setCurrentMessage] = useState<PracticeMessage | null>(null);
   const [identifiedEmotions, setIdentifiedEmotions] = useState<string[]>([]);
   const [userResponse, setUserResponse] = useState('');
@@ -58,7 +67,9 @@ export function EmotionPractice() {
         body: JSON.stringify({
           context: 'relationship',
           complexity: LEVELS[currentLevel - 1].name.toLowerCase(),
-          level: currentLevel
+          level: currentLevel,
+          mode: currentMode,
+          intensity: currentIntensity
         }),
       });
 
@@ -198,6 +209,68 @@ export function EmotionPractice() {
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
+
+          {/* Options Toggle Button */}
+          <div className="mt-4 flex justify-center">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowOptions(!showOptions)}
+              className="border-gray-700 hover:bg-gray-700"
+            >
+              {showOptions ? 'Hide Options' : 'Show Options'}
+            </Button>
+          </div>
+
+          {/* Mode and Intensity Selectors */}
+          {showOptions && (
+            <div className="mt-4 flex flex-wrap gap-4 justify-center">
+              <div className="flex gap-2">
+                <Button
+                  variant={currentMode === 'positive' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setCurrentMode('positive')}
+                  className={currentMode === 'positive' ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
+                >
+                  Positive
+                </Button>
+                <Button
+                  variant={currentMode === 'negative' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setCurrentMode('negative')}
+                  className={currentMode === 'negative' ? 'bg-red-500 hover:bg-red-600' : ''}
+                >
+                  Negative
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  variant={currentIntensity === 'mild' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setCurrentIntensity('mild')}
+                  className={currentIntensity === 'mild' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                >
+                  Mild
+                </Button>
+                <Button
+                  variant={currentIntensity === 'moderate' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setCurrentIntensity('moderate')}
+                  className={currentIntensity === 'moderate' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                >
+                  Moderate
+                </Button>
+                <Button
+                  variant={currentIntensity === 'intense' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setCurrentIntensity('intense')}
+                  className={currentIntensity === 'intense' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                >
+                  Intense
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="p-6 space-y-6">
@@ -326,7 +399,7 @@ export function EmotionPractice() {
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                'Next Message'
+                'Refresh Message'
               )}
             </Button>
             <Button

@@ -5,30 +5,51 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(request: Request) {
   try {
-    const { context, complexity, level } = await request.json();
+    const { context, complexity, level, mode, intensity } = await request.json();
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `You are an expert in emotional intelligence and relationship communication. 
     Generate a realistic, natural-sounding message for level ${level} that demonstrates ${complexity} emotional complexity.
     
+    Mode: ${mode}
+    Intensity: ${intensity}
+    
     For level 1 (Beginner):
     - Keep messages short and casual (1-2 sentences)
     - Use simple, everyday language
     - Emotions should be more obvious but not explicitly stated
-    - Example: "I'm so tired of this project. It's just not working out."
+    - Focus on basic, clear emotional situations
+    - Avoid complex emotional dynamics
     
     For level 2 (Intermediate):
     - Medium length messages (2-3 sentences)
     - More nuanced language
     - Emotions might be implied through context
-    - Example: "I thought we were on the same page about this. Now I'm not so sure."
+    - Include some emotional complexity
+    - Can involve mixed feelings
     
     For level 3 (Advanced):
     - Can be longer (3-4 sentences)
     - More complex emotional expressions
     - Mixed or subtle emotions
-    - Example: "I appreciate you trying to help, but I feel like you're not really hearing me. It's like we're talking past each other."
+    - Include layered emotional dynamics
+    - Can involve conflicting feelings
+    
+    Mode Guidelines:
+    - Positive mode: Focus on uplifting, encouraging, or happy emotions
+    - Negative mode: Focus on challenging, difficult, or sad emotions
+      * Use natural, varied expressions of negative emotions
+      * Avoid starting messages with interjections like "Ugh" or "Oh"
+      * Express negative emotions through context and situation
+      * Use subtle cues and implications rather than direct statements
+      * Vary the way negative emotions are expressed
+      * Consider different cultural and personal expression styles
+    
+    Intensity Guidelines:
+    - Mild: Subtle emotional expressions, gentle language
+    - Moderate: Clear emotional expressions, balanced language
+    - Intense: Strong emotional expressions, powerful language
     
     General guidelines:
     - Sound like how real people actually talk
@@ -37,6 +58,12 @@ export async function POST(request: Request) {
     - Be specific about the situation
     - Show vulnerability naturally
     - Keep it authentic and relatable
+    - Adjust emotional intensity based on the selected mode and intensity level
+    - Create unique, varied scenarios - avoid generic examples
+    - Use different contexts and situations for each message
+    - Vary the emotional triggers and circumstances
+    - Include specific details that make the situation feel real
+    - Avoid cliché or overused emotional expressions
     
     After generating the message, provide:
     1. The primary emotions present in the message (2-3 emotions)
