@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
-import { Star, CheckCircle2, XCircle, Loader2, ChevronLeft, ChevronRight, MessageSquare, Sparkles } from 'lucide-react';
+import { Star, CheckCircle2, XCircle, Loader2, ChevronLeft, ChevronRight, MessageSquare, Sparkles, Info } from 'lucide-react';
 import { 
   Dialog, 
   DialogContent, 
@@ -12,6 +12,12 @@ import {
   DialogHeader, 
   DialogTitle 
 } from './ui/dialog';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 interface PracticeMessage {
   id: string;
@@ -274,8 +280,21 @@ export function EmotionPractice() {
           {/* Mode and Intensity Selectors */}
           {showOptions && (
             <div className="mt-4 space-y-4">
-              <div className="flex flex-wrap gap-4 justify-center">
-                <div className="flex gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <h3 className="text-sm font-medium text-gray-300">Emotional Tone</h3>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 text-gray-400 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="max-w-xs">Choose whether to practice with positive emotions (joy, gratitude) or negative emotions (sadness, anger) to build different emotional recognition skills.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="flex gap-2 justify-center">
                   <Button
                     variant={currentMode === 'positive' ? 'default' : 'outline'}
                     size="sm"
@@ -293,31 +312,76 @@ export function EmotionPractice() {
                     Negative
                   </Button>
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant={currentIntensity === 'mild' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setCurrentIntensity('mild')}
-                    className={currentIntensity === 'mild' ? 'bg-blue-500 hover:bg-blue-600' : ''}
-                  >
-                    Mild
-                  </Button>
-                  <Button
-                    variant={currentIntensity === 'moderate' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setCurrentIntensity('moderate')}
-                    className={currentIntensity === 'moderate' ? 'bg-blue-500 hover:bg-blue-600' : ''}
-                  >
-                    Moderate
-                  </Button>
-                  <Button
-                    variant={currentIntensity === 'intense' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setCurrentIntensity('intense')}
-                    className={currentIntensity === 'intense' ? 'bg-blue-500 hover:bg-blue-600' : ''}
-                  >
-                    Intense
-                  </Button>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <h3 className="text-sm font-medium text-gray-300">Emotional Intensity</h3>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-4 w-4 text-gray-400 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="max-w-xs">Select how strong the emotions will be in the messages. Higher intensity means more obvious emotional cues, while mild requires more subtle recognition.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="flex gap-2 justify-center">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant={currentIntensity === 'mild' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setCurrentIntensity('mild')}
+                          className={currentIntensity === 'mild' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                        >
+                          Mild
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Subtle emotions that are harder to detect</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant={currentIntensity === 'moderate' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setCurrentIntensity('moderate')}
+                          className={currentIntensity === 'moderate' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                        >
+                          Moderate
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Clear but not overwhelming emotions</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant={currentIntensity === 'intense' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setCurrentIntensity('intense')}
+                          className={currentIntensity === 'intense' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                        >
+                          Intense
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Strong, obvious emotional expressions</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               </div>
               
