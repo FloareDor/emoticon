@@ -2,7 +2,16 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Textarea } from '@/components/ui/textarea';
 import { Star, CheckCircle2, XCircle, Loader2, ChevronLeft, ChevronRight, MessageSquare, Sparkles } from 'lucide-react';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle 
+} from './ui/dialog';
 
 interface PracticeMessage {
   id: string;
@@ -54,6 +63,8 @@ export function EmotionPractice() {
   const [error, setError] = useState<string | null>(null);
   const [feedbackText, setFeedbackText] = useState<string>('');
   const [improvedSuggestions, setImprovedSuggestions] = useState<string[]>([]);
+  const [customMessageDialogOpen, setCustomMessageDialogOpen] = useState(false);
+  const [customMessage, setCustomMessage] = useState('');
 
   const generateNewMessage = async () => {
     setIsLoading(true);
@@ -128,9 +139,47 @@ export function EmotionPractice() {
     }
   };
 
+  const handleSubmitCustomMessage = async () => {
+    if (!customMessage || customMessage.trim() === '') return;
+    
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/analyze-custom-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: customMessage,
+          level: currentLevel
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to analyze custom message');
+      }
+
+      const data = await response.json();
+      setCurrentMessage(data);
+      setIdentifiedEmotions([]);
+      setUserResponse('');
+      setShowFeedback(false);
+      setRating(null);
+      setImprovedSuggestions([]);
+      setCustomMessageDialogOpen(false);
+      setCustomMessage('');
+    } catch (err) {
+      setError('Failed to analyze your custom message. Please try again.');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     generateNewMessage();
-  }, [currentLevel]);
+  }, [currentLevel, currentMode, currentIntensity]);
 
   const handleEmotionSelect = (emotion: string) => {
     if (identifiedEmotions.includes(emotion)) {
@@ -224,49 +273,63 @@ export function EmotionPractice() {
 
           {/* Mode and Intensity Selectors */}
           {showOptions && (
-            <div className="mt-4 flex flex-wrap gap-4 justify-center">
-              <div className="flex gap-2">
-                <Button
-                  variant={currentMode === 'positive' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setCurrentMode('positive')}
-                  className={currentMode === 'positive' ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
-                >
-                  Positive
-                </Button>
-                <Button
-                  variant={currentMode === 'negative' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setCurrentMode('negative')}
-                  className={currentMode === 'negative' ? 'bg-red-500 hover:bg-red-600' : ''}
-                >
-                  Negative
-                </Button>
+            <div className="mt-4 space-y-4">
+              <div className="flex flex-wrap gap-4 justify-center">
+                <div className="flex gap-2">
+                  <Button
+                    variant={currentMode === 'positive' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentMode('positive')}
+                    className={currentMode === 'positive' ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
+                  >
+                    Positive
+                  </Button>
+                  <Button
+                    variant={currentMode === 'negative' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentMode('negative')}
+                    className={currentMode === 'negative' ? 'bg-red-500 hover:bg-red-600' : ''}
+                  >
+                    Negative
+                  </Button>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant={currentIntensity === 'mild' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentIntensity('mild')}
+                    className={currentIntensity === 'mild' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                  >
+                    Mild
+                  </Button>
+                  <Button
+                    variant={currentIntensity === 'moderate' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentIntensity('moderate')}
+                    className={currentIntensity === 'moderate' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                  >
+                    Moderate
+                  </Button>
+                  <Button
+                    variant={currentIntensity === 'intense' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentIntensity('intense')}
+                    className={currentIntensity === 'intense' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                  >
+                    Intense
+                  </Button>
+                </div>
               </div>
-              <div className="flex gap-2">
+              
+              {/* Custom Message Button */}
+              <div className="flex justify-center">
                 <Button
-                  variant={currentIntensity === 'mild' ? 'default' : 'outline'}
+                  variant="outline"
                   size="sm"
-                  onClick={() => setCurrentIntensity('mild')}
-                  className={currentIntensity === 'mild' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+                  onClick={() => setCustomMessageDialogOpen(true)}
+                  className="border-gray-700 hover:bg-gray-700 text-emerald-400"
                 >
-                  Mild
-                </Button>
-                <Button
-                  variant={currentIntensity === 'moderate' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setCurrentIntensity('moderate')}
-                  className={currentIntensity === 'moderate' ? 'bg-blue-500 hover:bg-blue-600' : ''}
-                >
-                  Moderate
-                </Button>
-                <Button
-                  variant={currentIntensity === 'intense' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setCurrentIntensity('intense')}
-                  className={currentIntensity === 'intense' ? 'bg-blue-500 hover:bg-blue-600' : ''}
-                >
-                  Intense
+                  Use Custom Message
                 </Button>
               </div>
             </div>
@@ -416,6 +479,35 @@ export function EmotionPractice() {
           </div>
         </div>
       </div>
+
+      {/* Custom Message Dialog */}
+      <Dialog open={customMessageDialogOpen} onOpenChange={setCustomMessageDialogOpen}>
+        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+              Enter Your Custom Message
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Paste or type a message you'd like to analyze and practice responding to.
+            </DialogDescription>
+          </DialogHeader>
+          <Textarea
+            value={customMessage}
+            onChange={(e) => setCustomMessage(e.target.value)}
+            placeholder="Enter a message from a friend or colleague..."
+            className="min-h-[100px] bg-gray-800/50 border-gray-700 focus:border-emerald-500 focus:ring-emerald-500 text-gray-100 placeholder:text-gray-500"
+          />
+          <DialogFooter>
+            <Button
+              onClick={handleSubmitCustomMessage}
+              disabled={!customMessage.trim()}
+              className="bg-emerald-500 hover:bg-emerald-600"
+            >
+              Analyze Message
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 
