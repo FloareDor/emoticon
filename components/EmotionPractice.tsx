@@ -423,10 +423,10 @@ export function EmotionPractice() {
                     identifiedEmotions.includes(emotion)
                       ? showFeedback
                         ? currentMessage.correctEmotions.includes(emotion)
-                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                          : 'bg-red-500/20 text-red-400 border-red-500/30'
-                        : 'bg-gray-700 text-gray-100 border-gray-600'
-                      : 'bg-gray-800/50 text-gray-300 border-gray-700 hover:bg-gray-700'
+                          ? 'bg-emerald-500/80 text-white border-emerald-600 font-medium'
+                          : 'bg-red-500/80 text-white border-red-600 font-medium'
+                        : 'bg-emerald-600 text-white border-emerald-700 font-medium shadow-md'
+                      : 'bg-gray-800/50 text-gray-300 border-gray-700 hover:bg-gray-700/70 hover:text-gray-100'
                   }`}
                 >
                   {emotion}
