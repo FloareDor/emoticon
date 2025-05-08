@@ -3,14 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
-import { Star, CheckCircle2, XCircle, Loader2, ChevronLeft, ChevronRight, MessageSquare, Sparkles, Info } from 'lucide-react';
+import { Star, CheckCircle2, XCircle, Loader2, ChevronLeft, ChevronRight, MessageSquare, Sparkles, Info, HelpCircle } from 'lucide-react';
 import { 
   Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
-  DialogTitle 
+  DialogTitle,
+  DialogClose
 } from './ui/dialog';
 import {
   Tooltip,
@@ -71,6 +72,7 @@ export function EmotionPractice() {
   const [improvedSuggestions, setImprovedSuggestions] = useState<string[]>([]);
   const [customMessageDialogOpen, setCustomMessageDialogOpen] = useState(false);
   const [customMessage, setCustomMessage] = useState('');
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
 
   const generateNewMessage = async () => {
     setIsLoading(true);
@@ -233,6 +235,18 @@ export function EmotionPractice() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-700 shadow-sm">
+        {/* Help Button (Added) */}
+        <div className="absolute top-2 right-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setHelpDialogOpen(true)}
+            className="rounded-full h-8 w-8 text-gray-400 hover:text-white hover:bg-gray-700/50"
+          >
+            <HelpCircle className="h-5 w-5" />
+          </Button>
+        </div>
+
         {/* Level Navigation */}
         <div className="p-6 border-b border-gray-700">
           <div className="flex items-center justify-between">
@@ -569,6 +583,76 @@ export function EmotionPractice() {
             >
               Analyze Message
             </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Help Dialog (Added) */}
+      <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
+        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+              About Emotion Practice
+            </DialogTitle>
+          </DialogHeader>
+          
+          <ScrollArea className="max-h-[60vh] pr-4">
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">What is this tool?</h3>
+                <p className="text-sm text-gray-300">
+                  This is a simple practice tool to help you recognize emotions in text messages and practice responding with empathy. It's designed as a low-stakes way to build emotional intelligence skills you can apply in real conversations.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">How to use it:</h3>
+                <ol className="text-sm text-gray-300 space-y-2 list-decimal pl-5">
+                  <li>Read the message as if it's from a friend or colleague</li>
+                  <li>Identify which emotions you think the person is feeling</li>
+                  <li>Write a response that acknowledges those emotions</li>
+                  <li>Get feedback on both your emotion recognition and response</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">Limitations:</h3>
+                <ul className="text-sm text-gray-300 space-y-2 list-disc pl-5">
+                  <li>This is a practice tool, not therapy or clinical training</li>
+                  <li>Emotional recognition from text alone is inherently limited</li>
+                  <li>The AI feedback is helpful but not perfect</li>
+                  <li>In real conversations, always prioritize the actual person over techniques</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">Tips for responding with empathy:</h3>
+                <ul className="text-sm text-gray-300 space-y-2 list-disc pl-5">
+                  <li><span className="text-emerald-400">Acknowledge</span> the emotions you notice</li>
+                  <li><span className="text-emerald-400">Validate</span> that their feelings make sense</li>
+                  <li><span className="text-emerald-400">Ask questions</span> to better understand their experience</li>
+                  <li><span className="text-emerald-400">Be present</span> rather than rushing to solve their problems</li>
+                  <li><span className="text-emerald-400">Be authentic</span> - forced empathy can feel worse than none</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">Different levels:</h3>
+                <ul className="text-sm text-gray-300 space-y-1">
+                  <li><span className="font-medium">Level 1:</span> Basic emotions with clear context</li>
+                  <li><span className="font-medium">Level 2:</span> More complex emotions with subtle cues</li>
+                  <li><span className="font-medium">Level 3:</span> Mixed emotions and nuanced situations</li>
+                </ul>
+              </div>
+            </div>
+          </ScrollArea>
+          
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button className="bg-emerald-500 hover:bg-emerald-600">
+                Got it
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>
