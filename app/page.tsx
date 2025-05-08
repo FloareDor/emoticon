@@ -18,7 +18,7 @@ export default function Home() {
               </CardTitle>
             </div>
             <CardDescription className="text-gray-400 text-lg">
-              To help with alexithymia and enhance emotional awareness and intelligence.
+              To help with alexithymia, emotional awareness and intelligence.
             </CardDescription>
           </CardHeader>
         </Card>
