@@ -592,7 +592,7 @@ export function EmotionPractice() {
         <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-              About Emotion Practice
+              About Emoticon
             </DialogTitle>
           </DialogHeader>
           
