@@ -48,14 +48,14 @@ export default function Home() {
 
       {/* Help/Disclaimer Dialog */}
       <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg">
+        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg mx-4 w-[calc(100%-2rem)] sm:mx-auto sm:w-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
               About Emoticon
             </DialogTitle>
           </DialogHeader>
           
-          <ScrollArea className="max-h-[60vh] pr-4">
+          <ScrollArea className="max-h-[50vh] sm:max-h-[60vh] pr-4">
             <div className="space-y-4">
               <div>
                 <h3 className="font-medium text-emerald-400 mb-1">What is this tool?</h3>
@@ -72,6 +72,18 @@ export default function Home() {
                   <li>Write a response that acknowledges those emotions</li>
                   <li>Get feedback on both your emotion recognition and response</li>
                 </ol>
+              </div>
+              
+              <div>
+                <h3 className="font-medium text-emerald-400 mb-1">Important Limitations:</h3>
+                <ul className="text-sm text-gray-300 space-y-2 list-disc pl-5">
+                  <li>This is a practice tool, not therapy or clinical training</li>
+                  <li>Emotional recognition from text alone is inherently limited</li>
+                  <li>The AI feedback is helpful but not perfect</li>
+                  <li>In real conversations, always prioritize the actual person over techniques</li>
+                  <li><strong>This is only for practice</strong> and does not replace deeper emotional healing work</li>
+                  <li><strong>This tool cannot substitute</strong> for the process of releasing/feeling long-suppressed emotions</li>
+                </ul>
               </div>
               
               <div>
@@ -98,7 +110,7 @@ export default function Home() {
           
           <DialogFooter>
             <DialogClose asChild>
-              <Button className="bg-emerald-500 hover:bg-emerald-600">
+              <Button className="bg-emerald-500 hover:bg-emerald-600 w-full sm:w-auto">
                 Got it
               </Button>
             </DialogClose>

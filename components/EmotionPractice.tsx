@@ -249,7 +249,7 @@ export function EmotionPractice() {
         </div>
 
         {/* Level Navigation */}
-        <div className="p-6 border-b border-gray-700">
+        <div className="p-4 sm:p-6 border-b border-gray-700">
           <div className="flex items-center justify-between">
             <Button
               variant="outline"
@@ -267,7 +267,7 @@ export function EmotionPractice() {
                   Level {currentLevel}
                 </h2>
               </div>
-              <p className="text-gray-400">{LEVELS[currentLevel - 1].description}</p>
+              <p className="text-gray-400 text-sm sm:text-base">{LEVELS[currentLevel - 1].description}</p>
             </div>
             <Button
               variant="outline"
@@ -415,19 +415,19 @@ export function EmotionPractice() {
           )}
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Message Display */}
-          <div className="bg-gray-700/30 rounded-lg border border-gray-600 p-4">
+          <div className="bg-gray-700/30 rounded-lg border border-gray-600 p-3 sm:p-4">
             <div className="flex items-start gap-2">
-              <MessageSquare className="h-5 w-5 text-emerald-500 mt-1" />
-              <p className="text-gray-100 italic">"{currentMessage.text}"</p>
+              <MessageSquare className="h-5 w-5 text-emerald-500 mt-1 flex-shrink-0" />
+              <p className="text-gray-100 italic text-sm sm:text-base">"{currentMessage.text}"</p>
             </div>
           </div>
 
           {/* Emotion Identification */}
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold text-gray-100">Identify Emotions</h3>
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-100">Identify Emotions</h3>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -462,7 +462,7 @@ export function EmotionPractice() {
                           : 'bg-red-500/80 text-white border-red-600 font-medium'
                         : 'bg-emerald-600 text-white border-emerald-700 font-medium shadow-md'
                       : 'bg-gray-800/50 text-gray-300 border-gray-700 hover:bg-gray-700/70 hover:text-gray-100'
-                  }`}
+                  } text-xs sm:text-sm mb-1`}
                 >
                   {emotion}
                   {showFeedback && (
@@ -482,14 +482,14 @@ export function EmotionPractice() {
 
           {/* Feedback Section */}
           {showFeedback && (
-            <div className="bg-gray-700/30 rounded-lg border border-gray-600 p-4 space-y-4">
+            <div className="bg-gray-700/30 rounded-lg border border-gray-600 p-3 sm:p-4 space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-100">Feedback</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-100">Feedback</h3>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-5 w-5 ${
+                      className={`h-4 w-4 sm:h-5 sm:w-5 ${
                         i < (rating || 0) ? 'fill-emerald-500 text-emerald-500' : 'text-gray-600'
                       }`}
                     />
@@ -497,19 +497,19 @@ export function EmotionPractice() {
                 </div>
               </div>
 
-              <div className="text-sm text-gray-300">
+              <div className="text-xs sm:text-sm text-gray-300">
                 {feedbackText}
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-100 mb-2">Correct Emotions:</h4>
+                <h4 className="font-medium text-gray-100 mb-2 text-sm sm:text-base">Correct Emotions:</h4>
                 <div className="flex flex-wrap gap-2">
                   {currentMessage.correctEmotions.map((emotion) => (
                     <Button
                       key={emotion}
                       variant="outline"
                       size="sm"
-                      className={`inline-flex items-center gap-1 ${
+                      className={`inline-flex items-center gap-1 text-xs sm:text-sm ${
                         identifiedEmotions.includes(emotion)
                           ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
                           : 'bg-gray-800/50 text-gray-400 border-gray-600'
@@ -527,11 +527,11 @@ export function EmotionPractice() {
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-100 mb-2">Improved Responses:</h4>
-                <ScrollArea className="h-[200px] rounded-xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
-                  <div className="p-4 space-y-3">
+                <h4 className="font-medium text-gray-100 mb-2 text-sm sm:text-base">Improved Responses:</h4>
+                <ScrollArea className="h-[150px] sm:h-[200px] rounded-xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+                  <div className="p-3 sm:p-4 space-y-3">
                     {improvedSuggestions.map((suggestion, index) => (
-                      <p key={index} className="text-zinc-300 text-sm">{suggestion}</p>
+                      <p key={index} className="text-zinc-300 text-xs sm:text-sm">{suggestion}</p>
                     ))}
                   </div>
                 </ScrollArea>
@@ -541,8 +541,8 @@ export function EmotionPractice() {
 
           {/* Response Practice */}
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold text-gray-100">Practice Response</h3>
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-100">Practice Response</h3>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -562,21 +562,21 @@ export function EmotionPractice() {
                 </Tooltip>
               </TooltipProvider>
             </div>
-            <Input
+            <Textarea
               value={userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
               placeholder="Write your empathetic response..."
-              className="bg-gray-800/50 border-gray-700 focus:border-emerald-500 focus:ring-emerald-500 text-gray-100 placeholder:text-gray-500"
+              className="bg-gray-800/50 border-gray-700 focus:border-emerald-500 focus:ring-emerald-500 text-gray-100 placeholder:text-gray-500 min-h-[80px] text-sm sm:text-base"
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-3 sm:gap-4">
             <Button
               variant="outline"
               onClick={generateNewMessage}
               disabled={isLoading}
-              className="flex-1 border-gray-700 hover:bg-gray-700"
+              className="flex-1 border-gray-700 hover:bg-gray-700 text-xs sm:text-sm py-2 h-auto"
             >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -587,7 +587,7 @@ export function EmotionPractice() {
             <Button
               onClick={handleSubmit}
               disabled={isLoading || !identifiedEmotions.length || !userResponse}
-              className="flex-1 bg-emerald-500 hover:bg-emerald-600"
+              className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-xs sm:text-sm py-2 h-auto"
             >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -601,12 +601,12 @@ export function EmotionPractice() {
 
       {/* Custom Message Dialog */}
       <Dialog open={customMessageDialogOpen} onOpenChange={setCustomMessageDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 sm:max-w-md">
+        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 sm:max-w-md mx-4 w-[calc(100%-2rem)]">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
               Enter Your Custom Message
             </DialogTitle>
-            <DialogDescription className="text-gray-400">
+            <DialogDescription className="text-gray-400 text-sm">
               Paste or type a message you'd like to analyze and practice responding to.
             </DialogDescription>
           </DialogHeader>
@@ -614,13 +614,13 @@ export function EmotionPractice() {
             value={customMessage}
             onChange={(e) => setCustomMessage(e.target.value)}
             placeholder="Enter a message from a friend or colleague..."
-            className="min-h-[100px] bg-gray-800/50 border-gray-700 focus:border-emerald-500 focus:ring-emerald-500 text-gray-100 placeholder:text-gray-500"
+            className="min-h-[100px] bg-gray-800/50 border-gray-700 focus:border-emerald-500 focus:ring-emerald-500 text-gray-100 placeholder:text-gray-500 text-sm sm:text-base"
           />
           <DialogFooter>
             <Button
               onClick={handleSubmitCustomMessage}
               disabled={!customMessage.trim()}
-              className="bg-emerald-500 hover:bg-emerald-600"
+              className="bg-emerald-500 hover:bg-emerald-600 w-full sm:w-auto"
             >
               Analyze Message
             </Button>
@@ -630,14 +630,14 @@ export function EmotionPractice() {
 
       {/* Help Dialog (Added) */}
       <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg">
+        <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 mx-4 w-[calc(100%-2rem)] sm:mx-auto sm:w-auto max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
               Important Disclaimer
             </DialogTitle>
           </DialogHeader>
           
-          <ScrollArea className="max-h-[60vh] pr-4">
+          <ScrollArea className="max-h-[50vh] sm:max-h-[60vh] pr-4">
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-gray-300">
@@ -661,7 +661,7 @@ export function EmotionPractice() {
           
           <DialogFooter>
             <DialogClose asChild>
-              <Button className="bg-emerald-500 hover:bg-emerald-600">
+              <Button className="bg-emerald-500 hover:bg-emerald-600 w-full sm:w-auto">
                 I understand
               </Button>
             </DialogClose>
