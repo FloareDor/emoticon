@@ -239,11 +239,12 @@ export function EmotionPractice() {
         <div className="absolute top-2 right-2">
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             onClick={() => setHelpDialogOpen(true)}
-            className="rounded-full h-8 w-8 text-gray-400 hover:text-white hover:bg-gray-700/50"
+            className="p-0 h-6 text-gray-400 hover:text-emerald-400"
           >
-            <HelpCircle className="h-5 w-5" />
+            <HelpCircle className="h-4 w-4 mr-1" />
+            <span className="text-xs">Disclaimer</span>
           </Button>
         </div>
 
@@ -425,7 +426,27 @@ export function EmotionPractice() {
 
           {/* Emotion Identification */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-100 mb-3">Identify Emotions</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold text-gray-100">Identify Emotions</h3>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setHelpDialogOpen(true)}
+                      className="p-0 h-6 text-gray-400 hover:text-emerald-400"
+                    >
+                      <HelpCircle className="h-4 w-4 mr-1" />
+                      <span className="text-xs">Disclaimer</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs">This is only for practice and does not replace emotional healing work</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <div className="flex flex-wrap gap-2 mb-4">
               {currentMessage.possibleEmotions.map((emotion) => (
                 <Button
@@ -520,7 +541,27 @@ export function EmotionPractice() {
 
           {/* Response Practice */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-100 mb-3">Practice Response</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold text-gray-100">Practice Response</h3>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setHelpDialogOpen(true)}
+                      className="p-0 h-6 text-gray-400 hover:text-emerald-400"
+                    >
+                      <HelpCircle className="h-4 w-4 mr-1" />
+                      <span className="text-xs">Disclaimer</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs">This cannot substitute for releasing/feeling long-suppressed emotions</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <Input
               value={userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
@@ -592,27 +633,16 @@ export function EmotionPractice() {
         <DialogContent className="bg-gray-900 border-gray-700 text-gray-100 max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-              About Emoticon
+              Important Disclaimer
             </DialogTitle>
           </DialogHeader>
           
           <ScrollArea className="max-h-[60vh] pr-4">
             <div className="space-y-4">
               <div>
-                <h3 className="font-medium text-emerald-400 mb-1">What is this tool?</h3>
                 <p className="text-sm text-gray-300">
-                  This is a practice tool to help you recognize emotions in text messages and respond with empathy. It's especially useful for people with <a href="https://www.google.com/search?q=what+is+alexithymia" target="_blank" rel="noopener noreferrer" className="font-bold text-emerald-400 hover:underline">alexithymia</a> (difficulty identifying and expressing emotions) or those wanting to improve their emotional intelligence and awareness. It's designed as a low-stakes way to build emotional intelligence skills you can apply in real conversations.
+                  This is a practice tool to help you recognize emotions in text messages and respond with empathy. It's designed as a low-stakes way to build emotional intelligence skills.
                 </p>
-              </div>
-              
-              <div>
-                <h3 className="font-medium text-emerald-400 mb-1">How to use it:</h3>
-                <ol className="text-sm text-gray-300 space-y-2 list-decimal pl-5">
-                  <li>Read the message as if it's from a friend or colleague</li>
-                  <li>Identify which emotions you think the person is feeling</li>
-                  <li>Write a response that acknowledges those emotions</li>
-                  <li>Get feedback on both your emotion recognition and response</li>
-                </ol>
               </div>
               
               <div>
@@ -626,33 +656,13 @@ export function EmotionPractice() {
                   <li><strong>This tool cannot substitute</strong> for the process of releasing/feeling long-suppressed emotions</li>
                 </ul>
               </div>
-              
-              <div>
-                <h3 className="font-medium text-emerald-400 mb-1">Tips for responding with empathy:</h3>
-                <ul className="text-sm text-gray-300 space-y-2 list-disc pl-5">
-                  <li><span className="text-emerald-400">Acknowledge</span> the emotions you notice</li>
-                  <li><span className="text-emerald-400">Validate</span> that their feelings make sense</li>
-                  <li><span className="text-emerald-400">Ask questions</span> to better understand their experience</li>
-                  <li><span className="text-emerald-400">Be present</span> rather than rushing to solve their problems</li>
-                  <li><span className="text-emerald-400">Be authentic</span> - forced empathy can feel worse than none</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="font-medium text-emerald-400 mb-1">Different levels:</h3>
-                <ul className="text-sm text-gray-300 space-y-1">
-                  <li><span className="font-medium">Level 1:</span> Basic emotions with clear context</li>
-                  <li><span className="font-medium">Level 2:</span> More complex emotions with subtle cues</li>
-                  <li><span className="font-medium">Level 3:</span> Mixed emotions and nuanced situations</li>
-                </ul>
-              </div>
             </div>
           </ScrollArea>
           
           <DialogFooter>
             <DialogClose asChild>
               <Button className="bg-emerald-500 hover:bg-emerald-600">
-                Got it
+                I understand
               </Button>
             </DialogClose>
           </DialogFooter>
