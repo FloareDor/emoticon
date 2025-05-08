@@ -601,7 +601,7 @@ export function EmotionPractice() {
               <div>
                 <h3 className="font-medium text-emerald-400 mb-1">What is this tool?</h3>
                 <p className="text-sm text-gray-300">
-                  This is a simple practice tool to help you recognize emotions in text messages and practice responding with empathy. It's designed as a low-stakes way to build emotional intelligence skills you can apply in real conversations.
+                  This is a practice tool to help you recognize emotions in text messages and respond with empathy. It's especially useful for people with <a href="https://www.google.com/search?q=what+is+alexithymia" target="_blank" rel="noopener noreferrer" className="font-bold text-emerald-400 hover:underline">alexithymia</a> (difficulty identifying and expressing emotions) or those wanting to improve their emotional intelligence and awareness. It's designed as a low-stakes way to build emotional intelligence skills you can apply in real conversations.
                 </p>
               </div>
               
