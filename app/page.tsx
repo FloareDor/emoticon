@@ -20,7 +20,7 @@ export default function Home() {
             <div className="flex items-center justify-center gap-2 mb-2">
               <Sparkles className="h-6 w-6 text-emerald-500" />
               <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-                Empathy Practice
+                Emoticon
               </CardTitle>
               <Button
                 variant="ghost"
