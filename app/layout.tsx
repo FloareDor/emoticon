@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { MusicPlayer } from '@/components/MusicPlayer';
+import { Analytics } from "@vercel/analytics/react";
 
 import './globals.css';
 
@@ -80,6 +81,7 @@ export default async function RootLayout({
           <Toaster position="top-center" />
           <MusicPlayer />
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
