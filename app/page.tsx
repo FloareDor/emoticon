@@ -83,6 +83,7 @@ export default function Home() {
                   <li>In real conversations, always prioritize the actual person over techniques</li>
                   <li><strong>This is only for practice</strong> and does not replace deeper emotional healing work</li>
                   <li><strong>This tool cannot substitute</strong> for the process of releasing/feeling long-suppressed emotions</li>
+                  <li><strong>For attachment-related fears or emotional avoidance</strong>, specialized therapeutic approaches are necessary beyond what this or most tools provide</li>
                 </ul>
               </div>
               
